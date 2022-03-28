@@ -1,0 +1,34 @@
+<snippet>
+	<content><![CDATA[
+	class Graph{
+        int V;
+        //Array of List
+        list<int> *l;
+
+        public:
+            Graph(int V){
+                this->V=V;
+                l = new list<int>[V]; 
+            }
+
+            void addEdge(int x,int y){
+                l[x].push_back(y);
+                l[y].push_back(x);
+            }
+
+            void printAdjList(){
+                for(int i=0;i<V;i++){
+                    cout<<"Vertex"<<" "<<i<<" -> ";
+                    for(auto nbr:l[i]){
+                        cout<<nbr<<",";
+                    }
+                    cout<<endl;
+                }
+            }
+    };
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>undirectedGraphusingAdjList</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

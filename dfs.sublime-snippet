@@ -1,0 +1,48 @@
+<snippet>
+	<content><![CDATA[
+template<typename T> 
+class Graph{
+
+    map<T,list<T>>  l;
+
+public:
+    void addEdge(int x, int y){
+        l[x].push_back(y);
+        l[y].push_back(x);
+    }
+
+    void dfs_helper(T src, map<T,bool> &visited){
+        //recursive function that will traverse the graph
+
+        cout<<src<<" ";
+        visited[src]=true;
+
+        for(T nbr: l[src]){
+            if(!visited[nbr]){
+                dfs_helper(nbr,visited);
+            }
+        }
+
+        //edit your dfs here
+
+    }
+
+    void dfs(T src){
+
+        map<T,bool> visited;
+
+            for(auto p: l){
+                T node=p.first;
+                visited[node]=false;
+            }
+            
+            dfs_helper(src,visited);
+        }
+        
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>dfs</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

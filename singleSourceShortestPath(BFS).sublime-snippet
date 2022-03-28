@@ -1,0 +1,59 @@
+<snippet>
+	<content><![CDATA[
+template<typename T> 
+class Graph{
+
+    map<T,list<T>>  l;
+
+public:
+    void addEdge(int x, int y){
+        l[x].push_back(y);
+        l[y].push_back(x);
+    }
+
+    void bfs(T src){
+
+        map<T,int> dist;
+        queue<T> q;
+
+        
+
+        //All other node distance will be infinity;
+        for(auto node_pair: l){
+            T node=node_pair.first;
+            dist[node]=INT_MAX;
+        }
+        q.push(src);
+        dist[src]=0;
+
+        while(!q.empty()){
+            T node=q.front();
+            q.pop();
+            // cout<<node<<" ";
+            for(auto nbr: l[node]){
+                if(dist[nbr]==INT_MAX){
+                    q.push(nbr);
+                    dist[nbr]=dist[node]+1;
+                }
+            }
+        }
+
+        //print distance of each node from source
+
+        for(auto node_pair:l){
+            T node=node_pair.first;
+            int d=dist[node];
+            cout<<"dist of "<<node<<" from "<<src<<"(src) is "<<d<<endl;
+        }
+
+        //edit your bfs here
+
+    }
+
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>singleSourceShortestPath(BFS)</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

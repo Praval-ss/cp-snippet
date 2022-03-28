@@ -1,0 +1,42 @@
+<snippet>
+	<content><![CDATA[
+		class Graph{
+
+    unordered_map <string,list<pair<string,int>>> l;
+
+public:
+    void addEdge(string s, string d, bool bidir, int w){
+        if(bidir){
+            l[s].push_back({d,w});
+            l[d].push_back({s,w});
+        }
+        else{
+
+            l[s].push_back({d,w});
+        }
+    }
+
+    void printAdjList(){
+
+        for(auto p: l){
+
+            string source= p.first;
+            list<pair<string,int>> pl=p.second;
+
+            cout<<source<<" -> ";
+            for(auto el: pl){
+                cout<<"("<<el.first<<","<<el.second<<")"<<" , ";
+            }
+            cout<<endl;
+        }
+
+    }
+
+};
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>directedGraphusingAdjList</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

@@ -1,0 +1,85 @@
+<snippet>
+	<content><![CDATA[
+template<typename T> 
+class Graph{
+
+    map<T,list<pair<T,int>>>  m;
+
+public:
+    void addEdge(T x, T y, int wt, bool bidir=true){
+        m[x].push_back({y,wt});
+        if(bidir)
+            m[y].push_back({x,wt});
+    }
+
+    void dijsktraSSSP(T src){
+
+       unordered_map<T,int> dist;
+
+       //set all the distances to infinity
+       for(auto p: m){
+            dist[p.first]=INT_MAX;
+       }
+
+       //make a set to find out the node with minimum distance
+       set<pair<int ,T>> s;
+
+       dist[src]=0;
+       s.insert({0,src});
+
+       while(!s.empty()){
+
+        //find pair at front
+
+        auto p=*(s.begin());
+        T node= p.second;
+
+        int nodeDist=p.first;
+        s.erase(s.begin());
+
+        //iterate the children/neighbours of the current node
+
+        for(auto childPair:m[node]){
+
+            if(nodeDist + childPair.second <dist[childPair.first] ){
+
+                //directly updation is not possible to first remove then add
+
+                T dest=childPair.first;
+
+                auto f= s.find({nodeDist,dest});
+
+                if(f!=s.end()){
+                    s.erase(f);
+                }
+
+                //inset a new set pair
+
+                dist[dest]=nodeDist+childPair.second;
+                s.insert({dist[dest],dest});
+
+            }
+
+        }
+
+       
+
+       }
+
+        //lets print the shortest distance from each node to source
+
+        for(auto el: dist){
+
+            cout<< "the distance of "<<el.first<<" from source "<<src<<" is "<<el.second <<endl;
+        }
+
+
+
+    }
+
+};]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>dijsktraSSSP</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>
